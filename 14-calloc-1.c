@@ -11,6 +11,8 @@
 #include <time.h>
 #include <unistd.h>
 
+#include <allocator.h>
+
 #define NUM_ROUNDS 20
 #define NUM_ALLOCATIONS 100
 #define ALLOC_SZ 4096
@@ -19,20 +21,6 @@ unsigned long vm_start = 0;
 unsigned long vm_limit = 0;
 
 test_start("Makes a large amount of random allocations and frees them");
-
-subtest("Checks to make sure block reuse is working first",
-{
-    char *a = malloc(4016);
-    strcpy(a, "Hello world!");
-    free(a);
-
-    char *b = malloc(4016);
-    puts("");
-    test_assert_str(b, "==", "Hello world!", 250);
-    printf("!!!\n");
-    printf("!!! Make sure your reuse functions are working before testing calloc !!!\n");
-    printf("!!!\n");
-});
 
 subtest("Virtual Memory Size Check",
 {
@@ -47,7 +35,7 @@ subtest("Virtual Memory Size Check",
                 continue; 
             }
             unsigned int alloc_sz = rand() % ALLOC_SZ;
-            int *a = calloc(alloc_sz, sizeof(int));
+            int *a = calloc_impl(alloc_sz, sizeof(int), "");
             if (a == NULL) {
                 test_assert(a != NULL);
                 return 1;
@@ -72,7 +60,7 @@ subtest("Virtual Memory Size Check",
         /* Free some of the allocations */
         for (j = 0; j < rand() % NUM_ALLOCATIONS + 1; ++j) {
             if (allocs[j] != NULL) {
-                free(allocs[j]);
+                free_impl(allocs[j]);
                 allocs[j] = NULL;
             }
         }
