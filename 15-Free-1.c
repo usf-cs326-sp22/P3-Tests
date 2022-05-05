@@ -10,6 +10,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include <allocator.h>
+
 #define NUM_ROUNDS 50
 #define NUM_ALLOCATIONS 10
 #define ALLOC_SZ 5000000
@@ -47,7 +49,7 @@ subtest("Virtual Memory Size Check",
 
         for (j = 0; j < NUM_ALLOCATIONS; ++j) {
             unsigned int alloc_sz = rand() % ALLOC_SZ;
-            int *a = malloc(alloc_sz * sizeof(int));
+            int *a = malloc_impl(alloc_sz * sizeof(int), "");
             if (a == NULL) {
                 test_assert(a != NULL);
                 return 1;
@@ -61,7 +63,7 @@ subtest("Virtual Memory Size Check",
 
         /* Free each allocation */
         for (j = 0; j < NUM_ALLOCATIONS; ++j) {
-            free(allocs[j]);
+            free_impl(allocs[j]);
         }
 
         unsigned long vm = vmsize();
