@@ -11,6 +11,8 @@
 #include <time.h>
 #include <unistd.h>
 
+#include <allocator.h>
+
 #define ALLOC_SZ 1048576
 
 /* DJB2 Hash. Credit: Dan Bernstein */
@@ -31,7 +33,7 @@ test_start("Makes sure basic malloc() functionality works");
 subtest("'Hello World' String",
 {
     char *str = "Hello World!";
-    char *allocation = malloc(1024);
+    char *allocation = malloc_impl(1024, "");
     test_assert(allocation != NULL);
 
     if (allocation != NULL) {
@@ -44,7 +46,7 @@ subtest("'Hello World' String",
 subtest("1 MB allocation filled with random values. Hash should be equal after two passes.",
 {
     srand(time(NULL));
-    unsigned char *allocation = malloc(ALLOC_SZ);
+    unsigned char *allocation = malloc_impl(ALLOC_SZ, "");
     test_assert(allocation != NULL);
     if (allocation == NULL) {
         return 1;
