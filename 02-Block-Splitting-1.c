@@ -118,7 +118,8 @@ subtest("Block doesn't have enough free space",
 subtest("Splitting splittable blocks! (Part 1)",
 {
     struct mem_block *block = malloc(sizeof(struct mem_block));
-    block->next_block = (void *) 42;
+    struct mem_block *n_block = malloc(sizeof(struct mem_block));
+    block->next_block = n_block;
     block->size = 8000;
     block->size = block->size | 0x01;
 
@@ -145,8 +146,9 @@ subtest("Splitting splittable blocks! (Part 1)",
         test_assert((result->size & 0x01) == 0x01);
 
         test_assert(block->next_block == result);
-        test_assert(result->next_block == (void *) 42);
+        test_assert(result->next_block == n_block);
         test_assert(result->prev_block == block);
+        test_assert(n_block->prev_block == result);
 
         printf("\nNOTE: The two sizes below include the 'free' bit:");
         test_assert(block->size == 7265);
@@ -161,7 +163,8 @@ subtest("Splitting splittable blocks! (Part 1)",
 subtest("Splitting splittable blocks! (Part 2)",
 {
     struct mem_block *block = malloc(sizeof(struct mem_block));
-    block->next_block = (void *) 420;
+    struct mem_block *n_block = malloc(sizeof(struct mem_block));
+    block->next_block = n_block;
     block->size = 160;
     block->size = block->size | 0x01;
 
@@ -176,9 +179,10 @@ subtest("Splitting splittable blocks! (Part 2)",
         test_assert((block->size & 0x01) == 0x01);
         test_assert(block->next_block == result);
 
-        test_assert(result->next_block == (void *) 420);
+        test_assert(block->next_block == result);
+        test_assert(result->next_block == n_block);
         test_assert(result->prev_block == block);
-        test_assert((result->size & 0x01) == 0x01);
+        test_assert(n_block->prev_block == result);
 
         printf("\nNOTE: The two sizes below include the 'free' bit:");
         test_assert(block->size == 81);
@@ -193,7 +197,8 @@ subtest("Splitting splittable blocks! (Part 2)",
 subtest("Splitting splittable blocks! (Part 3)",
 {
     struct mem_block *block = malloc(sizeof(struct mem_block));
-    block->next_block = (void *) 12;
+    struct mem_block *n_block = malloc(sizeof(struct mem_block));
+    block->next_block = n_block;
     block->size = 8192;
     block->size = block->size | 0x01;
 
@@ -206,10 +211,12 @@ subtest("Splitting splittable blocks! (Part 3)",
         printf(">>> We have split the block. Now let's check block properties:\n\n");
 
         test_assert((block->size & 0x01) == 0x01);
-        test_assert(block->next_block == result);
 
-        test_assert(result->next_block == (void *) 12);
+        test_assert(block->next_block == result);
+        test_assert(result->next_block == n_block);
         test_assert(result->prev_block == block);
+        test_assert(n_block->prev_block == result);
+
         test_assert((result->size & 0x01) == 0x01);
 
         test_assert(block->size == 8113);
