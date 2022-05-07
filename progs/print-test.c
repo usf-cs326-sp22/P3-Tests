@@ -10,7 +10,7 @@ int main(void)
     void *c = malloc_impl(100,  "Test Allocation: 2");
     void *d = malloc_impl(100,  "Test Allocation: 3"); /* Will be deleted */
     void *e = malloc_impl(100,  "Test Allocation: 4");
-    void *f = malloc_impl(3100, "Test Allocation: 5"); /* Will be deleted */
+    void *f = malloc_impl(3232, "Test Allocation: 5"); /* Will be deleted */
 
     void *g = malloc_impl(9800, "Big Allocation");
     void *h = malloc_impl(2000, "");
