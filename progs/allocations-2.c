@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include "vmsize.h"
-#include "../../allocator.c"
+#include "allocator.h"
 
 int main(void)
 {

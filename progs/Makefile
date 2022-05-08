@@ -1,6 +1,6 @@
 lib=liballocator.so
 CFLAGS += -Wall -g -pthread -Wno-unused-variable
-LDFLAGS += -L../.. -Wl,-rpath='$$ORIGIN/../..' -lallocator
+LDFLAGS += -I../.. -L../.. -Wl,-rpath='$$ORIGIN/../..' -lallocator
 
 all_progs = allocations-1 allocations-2 allocations-3 print-test scribble thread-safety
 

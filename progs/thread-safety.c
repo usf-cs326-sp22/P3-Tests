@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/time.h>
+#include "allocator.h"
 
 #define THREADS_PER_ROUND 2500
 #define NUM_ROUNDS 10
@@ -12,7 +13,7 @@ void *thread_proc(void *arg)
     int i, r;
 
     r = rand() % MAX_ALLOC;
-    int *mem = malloc(sizeof(int) * r);
+    int *mem = malloc_impl(sizeof(int) * r, "");
     for (i = 0; i < r; ++i) {
         mem[i] = (long) arg;
     }
