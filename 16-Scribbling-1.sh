@@ -1,6 +1,6 @@
 source "${TEST_LIB}/funcs.bash"
 
-expected=$(cat <<EOM
+reference_output=$(cat <<EOM
 Printing uninitialized variables:
 -1431655766
 -1431655766
@@ -17,11 +17,8 @@ EOM
 
 test_start "Memory Scribbling"
 
-# Check to make sure the library exists
-[[ -e "./allocator.so" ]] || test_end 1
+ALLOCATOR_SCRIBBLE=1 run tests/progs/scribble
 
-actual=$(LD_PRELOAD=./allocator.so tests/progs/scribble) || test_end
-
-compare <(echo "${expected}") <(echo "${actual}")
+compare_outputs --ignore-all-space || test_end 1
 
 test_end

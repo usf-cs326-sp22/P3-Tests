@@ -20,9 +20,9 @@
 unsigned long vm_start = 0;
 unsigned long vm_limit = 0;
 
-test_start("Makes a large amount of random allocations and frees them");
+test_start("calloc test");
 
-subtest("Virtual Memory Size Check",
+subtest("Allocates and verifies the blocks are zeroed out",
 {
     srand(time(NULL));
     int i, j;
