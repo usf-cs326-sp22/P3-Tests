@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include <stdio.h>
+
 #include "allocator.h"
 
 int main(void)
@@ -11,24 +13,23 @@ int main(void)
 
     free_impl(b);
     free_impl(c);
-
-    print_memory();
-
     free_impl(a);
     free_impl(d);
     free_impl(e);
 
     print_memory();
 
-    //void *f = malloc_impl(600, "Test Allocation: 5");
-    //void *g = malloc_impl(150, "Test Allocation: 6");
-    //void *h = malloc_impl(44, "Test Allocation: 7");
-    //void *i = malloc_impl(3, "Test Allocation: 8");
+    puts("\n");
 
-    //void *j = malloc_impl(6666, "Test Allocation: 9");
-    //void *k = malloc_impl(1192, "Test Allocation: 10");
+    void *f = malloc_impl(600, "Test Allocation: 5");
+    void *g = malloc_impl(150, "Test Allocation: 6");
+    void *h = malloc_impl(9896, "Test Allocation: 7");
 
-    //print_memory();
+    free_impl(f);
+    free_impl(g);
+    free_impl(h);
+
+    print_memory();
 
     return 0;
 }
