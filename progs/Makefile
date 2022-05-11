@@ -4,7 +4,7 @@ LDFLAGS += -I../.. -L../.. -Wl,-rpath='$$ORIGIN/../..' -lallocator
 
 header = ../../allocator.h
 
-all_progs = allocations-1 allocations-2 allocations-3 print-test scribble thread-safety merge
+all_progs = allocations-1 allocations-2 allocations-3 print-test scribble thread-safety merge realloc
 
 all: $(all_progs)
 
@@ -15,6 +15,7 @@ print-test:    print-test.c    $(header)
 scribble:      scribble.c      $(header)
 thread-safety: thread-safety.c $(header)
 merge:         merge.c         $(header)
+realloc:       realloc.c       $(header)
 
 clean:
 	rm -f $(all_progs)
