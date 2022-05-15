@@ -5,7 +5,7 @@ expected_order=$(cat <<EOM
   [BLOCK ] 576  [USED]  'Realloc 0'
   [BLOCK ] 688  [USED]  'Realloc 2'
   [BLOCK ] 672  [USED]  'Realloc 5'
-  [BLOCK ] 400  [USED]  ''
+  [BLOCK ] 400  [FREE]  ''
   [BLOCK ] 1344 [USED]  'Realloc 3'
   [BLOCK ] 416  [FREE]  ''
 [REGION ]
