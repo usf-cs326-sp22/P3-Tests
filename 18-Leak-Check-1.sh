@@ -2,14 +2,15 @@ source "${TEST_LIB}/funcs.bash"
 
 reference_output=$(cat <<EOM
 -- Leak Check --
-[BLOCK ADDR] 352      ''
-[BLOCK ADDR] 1360     ''
-[BLOCK ADDR] 80       'Test Allocation: 1'
-[BLOCK ADDR] 176      'Test Allocation: 3'
-[BLOCK ADDR] 3312     'Test Allocation: 5'
+[BLOCK ADDR] 176        'Test Allocation: 0'
+[BLOCK ADDR] 176        'Test Allocation: 2'
+[BLOCK ADDR] 176        'Test Allocation: 4'
+[BLOCK ADDR] 9872       'Big Allocation'
+[BLOCK ADDR] 2064       ''
+[BLOCK ADDR] 31408      'Last alloc'
 
 -- Summary --
-5 blocks lost (5285 bytes)
+6 blocks lost (43872 bytes)
 EOM
 )
 
