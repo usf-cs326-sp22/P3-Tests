@@ -27,7 +27,7 @@ void *thread_proc(void *arg)
         printf("Mismatch of array total! Memory corruption?\n");
     }
 
-    free(mem);
+    free_impl(mem);
     return 0;
 }
 
